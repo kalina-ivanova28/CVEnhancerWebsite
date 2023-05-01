@@ -1,0 +1,142 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks For Rating!</title>
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <style>
+        body{
+            background-color: #E6D3E7;
+        }
+        h1{
+            font-family:'Inika';
+            font-size: 30;
+            width: 200px;
+            padding: 5px;
+            letter-spacing: 10px;
+            border: 3px solid black;
+            position: relative;
+            top:30px;
+            left: 100px;
+        }
+        p#title{
+            font-family:'Inika';
+            font-size: 15;
+            position: relative;
+            top: 30px;
+            left: 80px;
+        }
+        section{ 
+            position: relative;
+            top: 60px;
+            width: 100%; 
+            border: 1px solid #836880;
+            background-color: #BFA3BB; 
+            padding: 8px;
+            /* opacity: 0.3;  */
+            
+        } 
+        section a{
+            position: relative;
+            left:70%;
+            margin: 40px;
+        }
+        div.scrollmenu{
+            background-color: #BFA3BB;
+            border: 1px solid #836880;
+            overflow: auto;
+            white-space: nowrap;
+            position: relative;
+            top: 100px;
+            margin: 0px;
+            padding: 10px;
+        }
+        div.scrollmenu li{
+            background-color: #FCFAFC;
+            display: inline-block;
+            color: rgb(1, 0, 0);
+            text-align: center;
+            font-size: small;
+            border-radius: 10px;
+            width: 150px;
+            height: 60px;
+            margin: 20px;
+            padding: 20px; 
+            text-decoration: none;
+        }
+        div#content{
+            position: relative;
+            left: 25%;
+            top: 12%;
+            border: 1px solid #836880;
+            background-color: #BFA3BB; 
+            width: 700px;
+            height: 225px;
+            padding: 30px;
+            text-align: center;
+        }
+        div#content2{
+            position: relative;
+            left: 30%;
+            width: 10px;
+        }
+        a#main{
+            position: relative;
+            left: 30px;
+        }
+        button{
+            background-color: #A781A1;
+            border: 1px solid #836880;
+            padding:15px;
+            border-radius: 5px;
+            font-size: 20px;
+        }
+        a#main{
+            position: absolute;
+            left: 37%;
+            top: 225px;
+        }
+        p#text{
+            background-color: white;
+            padding: 5px;
+            width: 300px;
+        }
+        button:hover{
+            background-color: #836880;
+        }
+    </style>
+</head>
+<body>
+    <h1>UNIVIEW</h1>
+    <p id="title">Enhance your CV now with Uniview</p>
+    <section>
+        <a href="{% url 'CV:index' %}">Instructions</a>
+        <a href="{% url 'CV:form_page' %}">Form</a>
+        <a href="{% url 'CV:about_us_page' %}">About Us</a>
+    </section>
+    <div id="content">
+        <h2>Thanks for Rating!</h2>
+        <div id="content2">
+            <p id="text">{{ratinglast.rating}}</p>
+            <p id="text">{{ratinglast.rating_val}}/5</p>
+            <p id="text">{{ratinglast.comment}}</p>
+            
+        </div>
+        
+        <a href="{% url 'CV:index' %}" id="main"><button>Back to Main Page</button></a>
+    </div>
+    
+    {% if rating_list %}
+        <ul>
+        <div class="scrollmenu">   
+        {% for rating in rating_list %}
+            <li>{{ rating.rating}}<br> {{ rating.rating_val}}/5 <br>{{ rating.comment}} </li>
+        {% endfor %}
+        </div>
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+</body>
+</html>

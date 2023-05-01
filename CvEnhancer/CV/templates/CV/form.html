@@ -1,0 +1,495 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <style>
+        body{
+            background-color: #E6D3E7;
+        }
+        h1#logo{
+            font-family:'Inika';
+            font-size: 30;
+            width: 200px;
+            padding: 5px;
+            letter-spacing: 10px;
+            border: 3px solid black;
+            position: relative;
+            top:30px;
+            left: 100px;
+        }
+        p#sublogo{
+            font-family:'Inika';
+            font-size: 15;
+            position: relative;
+            top: 30px;
+            left: 80px;
+        }
+        section#menu{ 
+            position: relative;
+            top: 60px;
+            width: 100%; 
+            border: 1px solid #836880;
+            background-color: #BFA3BB; 
+            padding: 8px;
+            /* opacity: 0.3;  */
+            
+        } 
+        section#menu a{
+            position: relative;
+            left:70%;
+            margin: 40px;
+        }
+        section#questions{
+            position: absolute;
+            top: 250px;
+            left: 750px; 
+            width: 700px;
+            background-color: #BFA3BB;
+            /* text-align: center; */
+            align-items: right;
+            border: 1px solid #836880;
+            padding: 10px;
+        }
+        button#anotherexp{
+            position: absolute;
+            top: 150px;
+            left: 300px;
+        }
+        button#anotherskill{
+            position: absolute;
+            top: 300px;
+            left: 300px;
+        }
+        h1#title{
+            font-family:'Inika';
+            font-size: 40;
+            width: 100px;
+            position: absolute;
+            top: 300px;
+            left: 230px;
+        }
+        button#submit{
+            position: absolute;
+            top: 500px;
+            left: 200px;
+            font-size: 20px;
+        }
+        button{
+            background-color: #A781A1;
+            border: 1px solid #836880;
+            padding:15px;
+            border-radius: 5px;
+        }
+        select#dropdown{
+            border-radius: 5px;
+            border: 1px solid grey;
+        }
+        section#results{
+            position: absolute;
+            top: 250px;
+            left: 750px; 
+            width: 700px;
+            background-color: #BFA3BB;
+            /* text-align: center; */
+            align-items: right;
+            border: 1px solid #836880;
+            padding: 10px;
+        }
+        p#suggestionexp{
+            background-color: white;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+        p#suggestionskill{
+            background-color: white;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+        p#fieldchosen{
+            background-color: white;
+            padding: 10px;
+            width: 300px;
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
+        canvas#MyChartE{
+            position: absolute;
+            top: 225px;
+        }
+        canvas#MyChartS{
+            position: absolute;
+            top: 525px;
+        }
+        a#ratebtn{
+            position: absolute;
+            top: 875px;
+            left: 225px;
+            font-size: 50px;
+            padding: 50px;
+        }
+        button:hover{
+            background-color: #836880;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="logo">UNIVIEW</h1>
+    <p id="sublogo">Enhance your CV now with Uniview</p>
+    <section id="menu">
+        <a href="{% url 'CV:index' %}">Instructions</a>
+        <a href="{% url 'CV:form_page' %}">Form</a>
+        <a href="{% url 'CV:about_us_page' %}">About Us</a>
+    </section>
+    
+    <section id="form" style="display: block;">
+        
+        <h1 id="title">Form</h1>
+        <button id="submit" onclick="Results()">See your results</button>
+       
+        <section id="questions">
+            <br>
+            <label id="fieldofexp">Field of Experience</label>
+            <br>
+            <select id="dropdown">
+            <option value="field">Field</option>
+            <option value="option1">AI</option>
+            <option value="option2">Database Systems</option>
+            <option value="option3">Graphics</option>
+            <option value="option4">Human Interaction</option>
+            <option value="option5">Programming Languages</option>
+            <option value="option6">Robotics</option>
+            <option value="option7">Security</option>
+            </select>
+
+
+            <p id="message" style="display: block; color: red;">Please select a field from the dropdown menu</p>
+            <br>
+            <label id="expadd">Work Experience-Max 5</label>
+            <br>
+            <textarea id="1" style="display:block;"></textarea>
+            <br>
+            <textarea id="2" style="display:none;"></textarea>
+            <br>
+            <textarea id="3" style="display:none;"></textarea>
+            <br>
+            <textarea id="4" style="display:none;"></textarea>
+            <br>
+            <textarea id="5" style="display:none;"></textarea>
+            <button onclick="addBox()" id="anotherexp">Add another work Experience</button>
+            <p id="nomoreexp" style="display: none; color: red;">You have reached the experiences max</p>
+            <label id="experience" style="display: none;"></label>
+            
+
+            <br>
+
+            <label id="skilladd">Skills-Max 5</label>
+            <br>
+            <textarea id="s1" style="display:block;"></textarea>
+            <br>
+            <textarea id="s2" style="display:none;"></textarea>
+            <br>
+            <textarea id="s3" style="display:none;"></textarea>
+            <br>
+            <textarea id="s4" style="display:none;"></textarea>
+            <br>
+            <textarea id="s5" style="display:none;"></textarea>
+            <button onclick="addSkill()" id="anotherskill">Add another Skill</button>
+            <p id="nomoreskill" style="display: none; color: red;">You have reached the skills max</p>
+            
+
+            <br>
+        </section>
+       
+       
+    </section>
+    <section id="suggestions" style="display: none;">
+        <section id="results">
+            <label>Field Chosen</label>
+            <p id="fieldchosen"></p>
+            <br>
+            <label>Suggested Additional Experiences</label>
+            <br>
+            <p id="suggestionexp"></p>
+            <br>
+            <label>Suggested Additional Skills</label>
+            <br>
+            <p id="suggestionskill"></p>  
+        </section>
+       
+
+        <canvas id="myChartE" style="width:100%;max-width:600px"></canvas>
+        <canvas id="myChartS" style="width:100%;max-width:600px"></canvas>
+
+        <a href="{% url 'CV:rate_page' %}" id="ratebtn"><button>Rate</button></a>
+    </section>
+    
+
+</body>
+</html>
+
+<script>
+    var experienceList = JSON.parse('{{ experience_list|safe }}');
+    var skillList = JSON.parse('{{ skill_list|safe }}');
+
+    console.log(experienceList[1].field_exp);
+    console.log(skillList);
+    
+    const dropdown = document.getElementById("dropdown");
+    const message = document.getElementById("message");
+    const originalText = dropdown.options[0].text;
+    let selectedOption=originalText;
+    
+    dropdown.addEventListener("change", function() {
+        selectedOption = dropdown.options[dropdown.selectedIndex];
+
+        if (selectedOption.text !== "Field" ) {
+            message.style.display = "none";
+        } 
+        else {
+            message.style.display = "block";
+        }
+    });
+    const Box1=document.getElementById("1");
+    const Box2=document.getElementById("2");
+    const Box3=document.getElementById("3");
+    const Box4=document.getElementById("4");
+    const Box5=document.getElementById("5");
+    const noMore=document.getElementById("nomoreexp");
+    let boxes=[Box1,Box2,Box3,Box4,Box5]
+    function addBox(){
+        for (i=0;i<boxes.length+1;i++){
+            if (i==boxes.length){
+                noMore.style.display="block";
+            }
+            else if(boxes[i].style.display=="none"){
+                boxes[i].style.display="block";
+                break;
+            }
+            
+        }
+    }
+
+    const BoxS1=document.getElementById("s1");
+    const BoxS2=document.getElementById("s2");
+    const BoxS3=document.getElementById("s3");
+    const BoxS4=document.getElementById("s4");
+    const BoxS5=document.getElementById("s5");
+    const noMoreS=document.getElementById("nomoreskill");
+    let boxesS=[BoxS1,BoxS2,BoxS3,BoxS4,BoxS5]
+    function addSkill(){
+        for (i=0;i<boxesS.length+1;i++){
+            if (i==boxesS.length){
+                noMoreS.style.display="block";
+            }
+            else if(boxesS[i].style.display=="none"){
+                boxesS[i].style.display="block";
+                break;
+            }
+            
+        }
+    };
+    let expsug=document.getElementById("suggestionexp")
+    let skillsug=document.getElementById("suggestionskill")
+    const form=document.getElementById("form")
+    const suggestions=document.getElementById("suggestions")
+    const chosenfield= document.getElementById("fieldchosen")
+    var xValues = ["AI", "Database Systems", "Graphics", "Human Interaction", "Programming Languages","Robotics","Security"];
+    var yValues=[14,14,14,14,14,14,14];
+    var yValuesS=[14,14,14,14,14,14,14];
+    var barColors = [
+        "#b91d47",
+        "#4a2508",
+        "#2b5797",
+        "#e8c3b9",
+        "#1e7145",
+        "#ee7b37",
+        "#76b5c5"
+    ];
+
+    function Results(){
+        xValues = ["AI", "Database Systems", "Graphics", "Human Interaction", "Programming Languages","Robotics","Security"];
+        yValues=[14,14,14,14,14,14,14];
+        yValuesS=[14,14,14,14,14,14,14];
+        
+        if(message.style.display == "none"){
+            chosenfield.innerHTML=selectedOption.text
+            form.style.display='none'
+            suggestions.style.display='block'
+           
+            const InfoE1=document.getElementById("1").value;
+            const InfoE2=document.getElementById("2").value;
+            const InfoE3=document.getElementById("3").value;
+            const InfoE4=document.getElementById("4").value;
+            const InfoE5=document.getElementById("5").value;
+
+            let InfoE=[InfoE1,InfoE2,InfoE3,InfoE4,InfoE5]
+
+            const InfoS1=document.getElementById("s1").value;
+            const InfoS2=document.getElementById("s2").value;
+            const InfoS3=document.getElementById("s3").value;
+            const InfoS4=document.getElementById("s4").value;
+            const InfoS5=document.getElementById("s5").value;
+
+            let InfoS=[InfoS1,InfoS2,InfoS3,InfoS4,InfoS5]
+
+            let outputE=[]
+            let outputS=[]
+            
+            if(InfoE1==""&& InfoE2==""&& InfoE3==""&& InfoE4==""&& InfoE5==""){
+                for (j=0;j<experienceList.length;j++){
+                    if(selectedOption.text==experienceList[j].field_exp){
+                        expsug.innerHTML+=experienceList[j].exp+"<br>";
+                    }
+                }
+            }
+            else{
+                for (i=InfoE.length;i>=0;i--){
+                    if(InfoE[i]==""){
+                        InfoE.splice(i,1)
+                    }
+                    console.log(InfoE)
+                    
+                }            
+                for (i=0;i<InfoE.length;i++){
+                    for (j=0;j<experienceList.length;j++){
+                                if(selectedOption.text==experienceList[j].field_exp){
+                                    if(!(InfoE[i].toLowerCase().includes(experienceList[j].exp.toLowerCase()))){
+                                        console.log(!(InfoE[i].toLowerCase().includes(experienceList[j].exp.toLowerCase())))
+                                        outputE.push(experienceList[j].exp)
+                                    }
+                                }
+                    }
+                }
+                for(j=0;j<InfoE.length;j++){
+                    for (i=0;i<outputE.length;i++){
+                        if(outputE[i].toLowerCase().includes(InfoE[j].toLowerCase())){
+                            outputE.splice(i,1)
+                        }
+                    }
+                }
+                let uniqueoutputE= [...new Set(outputE)];
+                
+
+                for (i=0;i<uniqueoutputE.length;i++){
+                    if(uniqueoutputE[i]!='undefined'){
+                      expsug.innerHTML+=uniqueoutputE[i]+"<br>";  
+                    }
+                    
+                }
+
+                for (i=0;i<InfoE.length;i++){
+                    for (j=0;j<experienceList.length;j++){
+                            if((InfoE[i].toLowerCase().includes(experienceList[j].exp.toLowerCase()))){
+                                for (k=0;k<xValues.length;k++){
+                                    if(experienceList[j].field_exp==xValues[k]){
+                                        console.log(xValues[k])
+                                        yValues[k]+=10
+                                    }
+                                }
+                            }
+                    }
+                }
+                console.log(yValues)
+            }
+
+
+
+            if(InfoS1==""&& InfoS2==""&& InfoS3==""&& InfoS4==""&& InfoS5==""){
+                for (j=0;j<skillList.length;j++){
+                    if(selectedOption.text==skillList[j].field_skill){
+                        skillsug.innerHTML+=skillList[j].skill+"<br>";
+                    }
+                }
+            }
+            else{
+                for (i=InfoS.length;i>=0;i--){
+                    if(InfoS[i]==""){
+                        InfoS.splice(i,1)
+                    }
+                    
+                }            
+                for (i=0;i<InfoS.length;i++){
+                    for (j=0;j<skillList.length;j++){
+                                if(selectedOption.text==skillList[j].field_skill){
+                                    if(!(InfoS[i].toLowerCase().includes(skillList[j].skill.toLowerCase()))){
+                                        outputS.push(skillList[j].skill)
+                                    }
+                                }
+                    }
+                }
+                for(j=0;j<InfoS.length;j++){
+                    for (i=0;i<outputS.length;i++){
+                        if(outputS[i].toLowerCase().includes(InfoS[j].toLowerCase())){
+                            outputS.splice(i,1)
+                        }
+                    }
+                }
+                let uniqueoutputS= [...new Set(outputS)];
+                
+
+                for (i=0;i<uniqueoutputS.length;i++){
+                    if(uniqueoutputS[i]!='undefined'){
+                      skillsug.innerHTML+=uniqueoutputS[i]+"<br>";  
+                    }
+                    
+                }
+
+                for (i=0;i<InfoE.length;i++){
+                    for (j=0;j<experienceList.length;j++){
+                            if((InfoE[i].toLowerCase().includes(experienceList[j].exp.toLowerCase()))){
+                                for (k=0;k<xValues.length;k++){
+                                    if(experienceList[j].field_exp==xValues[k]){
+                                        yValuesS[k]+=10
+                                    }
+                                }
+                            }
+                    }
+                }
+                console.log(yValuesS)
+
+            }
+            new Chart("myChartE", {
+                type: "pie",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                    }]
+                },
+                options: {
+                    title: {
+                    display: true,
+                    text: "Recommended Fields Based on your Experiences"
+                    }
+                }
+            });
+
+            new Chart("myChartS", {
+                type: "pie",
+                data: {
+                    labels: xValues,
+                    datasets: [{
+                    backgroundColor: barColors,
+                    data: yValuesS
+                    }]
+                },
+                options: {
+                    title: {
+                    display: true,
+                    text: " Recommended Fields Based on your Skills"
+                    }
+                }
+            });
+        };
+    };
+    
+</script>

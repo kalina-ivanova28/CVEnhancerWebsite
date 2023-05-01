@@ -1,0 +1,130 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructions</title>
+    <link href='https://fonts.googleapis.com/css?family=Inika' rel='stylesheet'>
+    <style>
+        body{
+            background-color: #E6D3E7;
+        }
+        h1{
+            font-family:'Inika';
+            font-size: 30;
+            width: 200px;
+            padding: 5px;
+            letter-spacing: 10px;
+            border: 3px solid black;
+            position: relative;
+            top:30px;
+            left: 100px;
+        }
+        p{
+            font-family:'Inika';
+            font-size: 15;
+            position: relative;
+            top: 30px;
+            left: 80px;
+        }
+        section{ 
+            position: relative;
+            top: 60px;
+            width: 100%; 
+            border: 1px solid #836880;
+            background-color: #BFA3BB; 
+            padding: 8px;
+            /* opacity: 0.3;  */
+            
+        } 
+        section a{
+            position: relative;
+            left:70%;
+            margin: 40px;
+        }
+        div.scrollmenu{
+            background-color: #BFA3BB;
+            border: 1px solid #836880;
+            overflow: auto;
+            white-space: nowrap;
+            position: relative;
+            top: 370px;
+            margin: 0px;
+            padding: 10px;
+        }
+        div.scrollmenu li{
+            background-color: #FCFAFC;
+            display: inline-block;
+            color: rgb(1, 0, 0);
+            text-align: center;
+            font-size: small;
+            border-radius: 10px;
+            width: 150px;
+            height: 60px;
+            margin: 20px;
+            padding: 20px; 
+            text-decoration: none;
+        }
+        button{
+            background-color: #A781A1;
+            border: 1px solid #836880;
+            padding:15px;
+            border-radius: 5px;
+            font-size: 20px;
+            position: absolute;
+            top: 325px;
+            left: 700px;
+        }
+        button:hover{
+            background-color: #836880;
+        }
+        div{
+            position: absolute;
+            top: 30%;
+            font-size: large;
+        }
+    </style>
+</head>
+<body>
+    <h1>UNIVIEW</h1>
+    <p>Enhance your CV now with Uniview</p>
+    <section>
+        <a href="{% url 'CV:index' %}">Instructions</a>
+        <a href="{% url 'CV:form_page' %}">Form</a>
+        <a href="{% url 'CV:about_us_page' %}">About Us</a>
+    </section>
+    <div>
+        <h2>Instructions</h2>
+    <br>
+    <br>
+      Enhance your CV in a few quick steps!
+      <br>
+      <br>
+      1.Click on Form
+      <br>
+      <br>
+      2.Add your work experience
+      <br>
+      <br>
+      3.Add your skills
+      <br>
+      <br>
+      4.Click submit and watch the magic happen!
+    </div>
+    
+    <a href="{% url 'CV:form_page' %}"><button>Start Form</button></a>
+    {% if rating_list %}
+        <ul>
+        <div class="scrollmenu">   
+        {% for rating in rating_list %}
+            <li>{{ rating.rating}}<br> {{ rating.rating_val}}/5 <br>{{ rating.comment}} </li>
+        {% endfor %}
+        </div>
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+    
+</body>
+</html>
+
